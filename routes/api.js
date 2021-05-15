@@ -33,7 +33,7 @@ router.post("/api/workout/bulk", ({ body }, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-  workout.aggregate([
+ workout.aggregate([
     {
         $addFields: {
             totalDuration: {
@@ -53,9 +53,15 @@ router.get("/api/workouts/range", (req, res) => {
 
 router.put("/api/workouts/:id", (req, res) => {
     workout.findByIdAndUpdate({
-            _id: req.params.id},
-            { $push: { exercises: req.body }}
+            _id: req.params.id
+    },
+        {
+       
+           $push: { exercises: req.body }
+        }
     )
+
+
       .then(dbworkouts => {
         res.json(dbworkouts);
       })
